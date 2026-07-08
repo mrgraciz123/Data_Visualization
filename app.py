@@ -195,6 +195,31 @@ st.markdown("""
 # ----------------------------------------------------
 # 1. LOAD & CACHE DATA PIPELINE
 # ----------------------------------------------------
+def clean_price_val(x):
+    if pd.isna(x):
+        return 0.0
+    x_str = str(x).strip()
+    if x_str == "0" or x_str == "0.0":
+        return 0.0
+    if x_str.startswith("$"):
+        x_str = x_str[1:]
+    try:
+        return float(x_str)
+    except ValueError:
+        return 0.0
+
+def clean_installs_val(x):
+    if pd.isna(x):
+        return 0
+    x_str = str(x).replace(",", "").replace("+", "").strip()
+    try:
+        return int(x_str)
+    except ValueError:
+        try:
+            return int(float(x_str))
+        except ValueError:
+            return 0
+
 @st.cache_data
 def get_raw_data():
     return pd.read_csv("googleplaystore_v2.csv")
@@ -221,37 +246,12 @@ def get_clean_data(df):
         df_clean['Current Ver'] = df_clean['Current Ver'].fillna(current_mode)
         
     # 5. Clean Price column (remove '$' and convert to float)
-    def clean_price_val(x):
-        if pd.isna(x):
-            return 0.0
-        x_str = str(x).strip()
-        if x_str == "0" or x_str == "0.0":
-            return 0.0
-        if x_str.startswith("$"):
-            x_str = x_str[1:]
-        try:
-            return float(x_str)
-        except ValueError:
-            return 0.0
-            
     df_clean['Price'] = df_clean['Price'].apply(clean_price_val)
     
     # 6. Reviews to int32
     df_clean['Reviews'] = pd.to_numeric(df_clean['Reviews'], errors='coerce').fillna(0).astype('int32')
     
     # 7. Clean Installs column (remove commas & plus, convert to int)
-    def clean_installs_val(x):
-        if pd.isna(x):
-            return 0
-        x_str = str(x).replace(",", "").replace("+", "").strip()
-        try:
-            return int(x_str)
-        except ValueError:
-            try:
-                return int(float(x_str))
-            except ValueError:
-                return 0
-                
     df_clean['Installs'] = df_clean['Installs'].apply(clean_installs_val)
     
     # 8. Sanity check: Reviews <= Installs
