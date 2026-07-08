@@ -71,30 +71,25 @@ st.markdown("""
     
     .kpi-card {
         flex: 1;
-        background: rgba(255, 255, 255, 0.65);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 16px;
         padding: 1.5rem;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: var(--text-color);
     }
     
     .kpi-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-    
-    .dark .kpi-card {
-        background: rgba(17, 24, 39, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(128, 128, 128, 0.35);
     }
     
     .kpi-label {
         font-size: 0.9rem;
-        color: #6B7280;
+        color: var(--text-color);
+        opacity: 0.7;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -104,13 +99,8 @@ st.markdown("""
         font-size: 2.2rem;
         font-weight: 700;
         margin-top: 0.25rem;
-        background: linear-gradient(135deg, #1E1B4B 0%, #4F46E5 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    
-    .dark .kpi-value {
-        background: linear-gradient(135deg, #F3F4F6 0%, #A5B4FC 100%);
+        color: #6366F1;
+        background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -166,28 +156,20 @@ st.markdown("""
     .section-title {
         font-size: 1.8rem;
         font-weight: 600;
-        color: #111827;
+        color: var(--text-color);
         margin-top: 1.5rem;
         margin-bottom: 1rem;
         border-left: 5px solid #4F46E5;
         padding-left: 10px;
     }
     
-    .dark .section-title {
-        color: #F9FAFB;
-    }
-    
     .feature-card {
         padding: 1.5rem;
-        background-color: #F8FAFC;
+        background-color: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 12px;
-        border: 1px solid #E2E8F0;
         margin-bottom: 1.5rem;
-    }
-    
-    .dark .feature-card {
-        background-color: #1E293B;
-        border: 1px solid #334155;
+        color: var(--text-color);
     }
 </style>
 """, unsafe_allow_html=True)
